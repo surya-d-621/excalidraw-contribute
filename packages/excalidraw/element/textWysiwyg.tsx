@@ -11,7 +11,7 @@ import {
   isBoundToContainer,
   isTextElement,
 } from "./typeChecks";
-import { CLASSES, POINTER_BUTTON } from "../constants";
+import { CLASSES, POINTER_BUTTON, RECTANGLE_BOUND_TEXT_PADDING } from "../constants";
 import type {
   ExcalidrawElement,
   ExcalidrawLinearElement,
@@ -366,10 +366,12 @@ export const textWysiwyg = ({
         editable.selectionEnd = selectionStart;
       }
       onChange(editable.value);
+
     };
   }
 
   editable.onkeydown = (event) => {
+
     if (!event.shiftKey && actionZoomIn.keyTest(event)) {
       event.preventDefault();
       app.actionManager.executeAction(actionZoomIn);
@@ -411,6 +413,7 @@ export const textWysiwyg = ({
       } else {
         indent();
       }
+
       // We must send an input event to resize the element
       editable.dispatchEvent(new Event("input"));
     }

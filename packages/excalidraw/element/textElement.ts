@@ -16,6 +16,7 @@ import {
   BOUND_TEXT_PADDING,
   DEFAULT_FONT_FAMILY,
   DEFAULT_FONT_SIZE,
+  RECTANGLE_BOUND_TEXT_PADDING,
   TEXT_ALIGN,
   VERTICAL_ALIGN,
 } from "../constants";
@@ -60,7 +61,6 @@ export const redrawTextBoundingBox = (
   };
 
   boundTextUpdates.text = textElement.text;
-
   if (container || !textElement.autoResize) {
     maxWidth = container
       ? getBoundTextMaxWidth(container, textElement)
@@ -568,6 +568,12 @@ export const getContainerCoords = (container: NonDeletedExcalidrawElement) => {
     offsetX += container.width / 4;
     offsetY += container.height / 4;
   }
+
+  //Adding padding for rectangle
+  if (container.type === "rectangle") {
+    offsetX = RECTANGLE_BOUND_TEXT_PADDING;
+    offsetY = RECTANGLE_BOUND_TEXT_PADDING;
+  }
   return {
     x: container.x + offsetX,
     y: container.y + offsetY,
@@ -646,6 +652,7 @@ export const computeContainerDimensionForBoundText = (
   dimension: number,
   containerType: ExtractSetType<typeof VALID_CONTAINER_TYPES>,
 ) => {
+  console.log("compute");
   dimension = Math.ceil(dimension);
   const padding = BOUND_TEXT_PADDING * 2;
 
@@ -658,6 +665,11 @@ export const computeContainerDimensionForBoundText = (
   if (containerType === "diamond") {
     return 2 * (dimension + padding);
   }
+
+  if (containerType === "rectangle") {
+    return dimension + RECTANGLE_BOUND_TEXT_PADDING * 2;
+  }
+
   return dimension + padding;
 };
 
@@ -682,6 +694,10 @@ export const getBoundTextMaxWidth = (
     // The width of the largest rectangle inscribed inside a rhombus is
     // Math.round(width / 2) - https://github.com/excalidraw/excalidraw/pull/6265
     return Math.round(width / 2) - BOUND_TEXT_PADDING * 2;
+  }
+
+  if (container.type === "rectangle") {
+    return width - RECTANGLE_BOUND_TEXT_PADDING * 2;
   }
   return width - BOUND_TEXT_PADDING * 2;
 };
@@ -709,6 +725,11 @@ export const getBoundTextMaxHeight = (
     // Math.round(height / 2) - https://github.com/excalidraw/excalidraw/pull/6265
     return Math.round(height / 2) - BOUND_TEXT_PADDING * 2;
   }
+  
+  if (container.type === "rectangle") {
+    return height - RECTANGLE_BOUND_TEXT_PADDING * 2;
+  }
+
   return height - BOUND_TEXT_PADDING * 2;
 };
 

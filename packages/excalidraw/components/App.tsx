@@ -4856,6 +4856,7 @@ class App extends React.Component<AppProps, AppState> {
       onChange: withBatchedUpdates((nextOriginalText) => {
         updateElement(nextOriginalText, false);
         if (isNonDeletedElement(element)) {
+
           updateBoundElements(element, this.scene.getNonDeletedElementsMap());
         }
       }),

@@ -711,6 +711,7 @@ export const updateBoundElements = (
     });
 
     const boundText = getBoundTextElement(element, elementsMap);
+
     if (boundText && !boundText.isDeleted) {
       handleBindTextResize(element, elementsMap, false);
     }
