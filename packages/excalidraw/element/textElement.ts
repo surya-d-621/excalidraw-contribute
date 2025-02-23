@@ -1,4 +1,10 @@
-import { getFontString, arrayToMap, isTestEnv, normalizeEOL } from "../utils";
+import {
+  getFontString,
+  arrayToMap,
+  isTestEnv,
+  normalizeEOL,
+  isNewPaddingApplicable,
+} from "../utils";
 import type {
   ElementsMap,
   ExcalidrawElement,
@@ -568,6 +574,11 @@ export const getContainerCoords = (container: NonDeletedExcalidrawElement) => {
     offsetX += container.width / 4;
     offsetY += container.height / 4;
   }
+
+  if (isNewPaddingApplicable(container) && container.type === "rectangle") {
+    offsetX = offsetX * 2;
+  }
+
   return {
     x: container.x + offsetX,
     y: container.y + offsetY,
@@ -683,6 +694,11 @@ export const getBoundTextMaxWidth = (
     // Math.round(width / 2) - https://github.com/excalidraw/excalidraw/pull/6265
     return Math.round(width / 2) - BOUND_TEXT_PADDING * 2;
   }
+
+  if (isNewPaddingApplicable(container) && container.type === "rectangle") {
+    return width - BOUND_TEXT_PADDING * 4;
+  }
+
   return width - BOUND_TEXT_PADDING * 2;
 };
 

@@ -195,6 +195,8 @@ const restoreElementWithProperties = <
     boundElements: element.boundElementIds
       ? element.boundElementIds.map((id) => ({ type: "arrow", id }))
       : element.boundElements ?? [],
+    //For old elements there was no created.
+    created: element.created ?? 1,
     updated: element.updated ?? getUpdatedTimestamp(),
     link: element.link ? normalizeLink(element.link) : null,
     locked: element.locked ?? false,
