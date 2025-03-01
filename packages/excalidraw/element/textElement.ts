@@ -3,7 +3,6 @@ import {
   arrayToMap,
   isTestEnv,
   normalizeEOL,
-  isNewPaddingApplicable,
 } from "../utils";
 import type {
   ElementsMap,
@@ -22,6 +21,7 @@ import {
   BOUND_TEXT_PADDING,
   DEFAULT_FONT_FAMILY,
   DEFAULT_FONT_SIZE,
+  INCREASED_BOUND_TEXT_PADDING,
   TEXT_ALIGN,
   VERTICAL_ALIGN,
 } from "../constants";
@@ -576,18 +576,9 @@ export const getContainerCoords = (container: NonDeletedExcalidrawElement) => {
   }
 
   if (container.type === "rectangle") {
-    /** Increasing horizontal padding by doubling the existing BOUND_TEXT_PADDING.
-    This avoids introducing a new constant and keeps the padding logic consistent,
-     effectively adding equal padding on both left and right sides. */
-    offsetX = BOUND_TEXT_PADDING * 2;
+    //Increase horizontal padding without modifying BOUND_TEXT_PADDING.
+    offsetX = BOUND_TEXT_PADDING + INCREASED_BOUND_TEXT_PADDING;
   }
-
-  /** NEW_PADDING:: Temporarily using this isNewPaddingApplicable(container) condition to apply increased padding
-   for rectangles created after the specified timestamp. Will remove this after reviewing the PR. */
-
-  // if (isNewPaddingApplicable(container) && container.type === "rectangle") {
-  //   offsetX = BOUND_TEXT_PADDING * 2;
-  // }
 
   return {
     x: container.x + offsetX,
@@ -706,15 +697,9 @@ export const getBoundTextMaxWidth = (
   }
 
   if (container.type === "rectangle") {
-    /** Adjusting width to account for the increased horizontal padding.
-     The padding was doubled in getContainerCoords for both left and right sides,
-     so we subtract BOUND_TEXT_PADDING * 4 (2 on the left + 2 on the right). */
-    return width - BOUND_TEXT_PADDING * 4;
+    //Adjust width to accommodate increased horizontal padding in getContainerCoords() .
+    return width - (BOUND_TEXT_PADDING + INCREASED_BOUND_TEXT_PADDING) * 2;
   }
-
-  // if (isNewPaddingApplicable(container) && container.type === "rectangle") {
-  //   return width - BOUND_TEXT_PADDING * 4;
-  // }
 
   return width - BOUND_TEXT_PADDING * 2;
 };
