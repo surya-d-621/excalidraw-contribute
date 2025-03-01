@@ -679,9 +679,6 @@ export const computeContainerDimensionForBoundText = (
   if (containerType === "diamond") {
     return 2 * (dimension + padding);
   }
-  if (containerType === "rectangle") {
-    return 2 * (dimension + padding);
-  }
   return dimension + padding;
 };
 
