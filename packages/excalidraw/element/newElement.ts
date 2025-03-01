@@ -126,7 +126,6 @@ const _newElementBase = <T extends ExcalidrawElement>(
     versionNonce: rest.versionNonce ?? 0,
     isDeleted: false as false,
     boundElements,
-    created: getUpdatedTimestamp(),
     updated: getUpdatedTimestamp(),
     link,
     locked,

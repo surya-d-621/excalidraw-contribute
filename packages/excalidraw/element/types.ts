@@ -72,8 +72,6 @@ type _ExcalidrawElementBase = Readonly<{
   frameId: string | null;
   /** other elements that are bound to this element */
   boundElements: readonly BoundElement[] | null;
-  /** epoch (ms) timestamp of element creation */
-  created?: number;
   /** epoch (ms) timestamp of last element update */
   updated: number;
   link: string | null;

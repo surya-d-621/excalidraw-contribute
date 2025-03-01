@@ -1,9 +1,4 @@
-import {
-  getFontString,
-  arrayToMap,
-  isTestEnv,
-  normalizeEOL,
-} from "../utils";
+import { getFontString, arrayToMap, isTestEnv, normalizeEOL } from "../utils";
 import type {
   ElementsMap,
   ExcalidrawElement,

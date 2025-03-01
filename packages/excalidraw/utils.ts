@@ -7,7 +7,6 @@ import {
   FONT_FAMILY,
   getFontFamilyFallbacks,
   isDarwin,
-  NEW_RECTANGLE_PADDING_EFFECTIVE_TIMESTAMP,
   WINDOWS_EMOJI_FALLBACK_FONT,
 } from "./constants";
 import type {
@@ -1241,14 +1240,5 @@ export const sanitizeHTMLAttribute = (html: string) => {
       .replace(/'/g, "&#39;")
       .replace(/>/g, "&gt;")
       .replace(/</g, "&lt;")
-  );
-};
-
-export const isNewPaddingApplicable = (
-  container: NonDeletedExcalidrawElement,
-) => {
-  return (
-    container.created &&
-    container.created >= NEW_RECTANGLE_PADDING_EFFECTIVE_TIMESTAMP
   );
 };
