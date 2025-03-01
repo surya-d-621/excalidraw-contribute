@@ -32,7 +32,7 @@ describe("Test measureText", () => {
         ...params,
       });
       expect(getContainerCoords(element)).toEqual({
-        x: 20,
+        x: 15,
         y: 25,
       });
     });
@@ -94,7 +94,7 @@ describe("Test measureText", () => {
 
     it("should return max width when container is rectangle", () => {
       const container = API.createElement({ type: "rectangle", ...params });
-      expect(getBoundTextMaxWidth(container, null)).toBe(158);
+      expect(getBoundTextMaxWidth(container, null)).toBe(168);
     });
 
     it("should return max width when container is ellipse", () => {
